@@ -1,0 +1,5 @@
+human_gene	drosophila_ortholog	sleep_trait	fly_phenotype	mechanism	year	journal
+CADM2	beat-Ia	excessive daytime sleepiness	increased sleep	NPF neurite defect → arousal circuit failure	2026	Nat Commun
+EGR2	stripe	hypersomnia (sub-threshold)	increased sleep + consolidation	EGR2 as distal effector at ADO-EGR2 locus	2026	biorXiv
+SIK3	Sik3	sleep disruption (TDP-43)	loss rescues sleep	Peripheral metabolic dysfunction via SIK3	2026	biorXiv
+FOXP1	FoxP	insomnia	fragmented/reduced sleep	Developmental peptidergic signaling (PDF neurons)	2026	J Clin Invest
