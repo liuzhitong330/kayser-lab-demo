@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sleep GWAS Landscape and Cross-Species Validation — Cathy Liu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: Georgia, serif; max-width: 720px; margin: 0 auto;
+         padding: 2.5rem 1.5rem 4rem; line-height: 1.65; color: #222; background: #fff; }
+  h1, h2, h3 { font-family: -apple-system, system-ui, sans-serif; }
+  h1 { font-size: 1.45rem; margin-bottom: .2rem; }
+  .byline { font-family: system-ui, sans-serif; font-size: .85rem; color: #777; margin-bottom: 2rem; }
+  h2 { font-size: 1.1rem; margin-top: 2.5rem; border-bottom: 1px solid #eee; padding-bottom: .3rem; }
+  .note { background: #f6f6f4; border-left: 3px solid #999; padding: .8rem 1rem;
+          font-family: system-ui, sans-serif; font-size: .85rem; color: #444; margin: 1.2rem 0; }
+  figure { margin: 1.2rem 0; }
+  figure img { max-width: 100%; display: block; }
+  figcaption { font-family: system-ui, sans-serif; font-size: .78rem; color: #777; margin-top: .4rem; }
+  a { color: #2255aa; }
+  .meta { font-family: system-ui, sans-serif; font-size: .8rem; color: #888;
+          margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
+  .tag { display: inline-block; font-family: system-ui, sans-serif; font-size: .75rem;
+         background: #eef2f8; color: #2255aa; padding: .15rem .5rem;
+         border-radius: 3px; margin-right: .3rem; }
+  .highlight  { background: #fff5f5; border-left: 3px solid #c0392b; padding: .6rem 1rem;
+                font-family: system-ui, sans-serif; font-size: .88rem; margin: 1rem 0; }
+  .highlight2 { background: #f0f8ff; border-left: 3px solid #1a5c8a; padding: .6rem 1rem;
+                font-family: system-ui, sans-serif; font-size: .88rem; margin: 1rem 0; }
+  .highlight3 { background: #f5fff0; border-left: 3px solid #27ae60; padding: .6rem 1rem;
+                font-family: system-ui, sans-serif; font-size: .88rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<h1>Sleep Genetics Has Thousands of Loci and Knows the Biology of Almost None</h1>
+<div class="byline">Cathy Liu · cathyliu014@gmail.com · personal exploratory project, July 2026</div>
+
+<span class="tag">sleep genetics</span>
+<span class="tag">GWAS</span>
+<span class="tag">Drosophila</span>
+<span class="tag">cross-species</span>
+<span class="tag">insomnia</span>
+<span class="tag">Python</span>
+
+<p style="margin-top:1.2rem">
+The
+<a href="https://kayserlab.ucsf.edu/" target="_blank">Kayser lab</a>
+works on the biology of sleep — using <em>Drosophila</em> genetics and human genomics to
+understand why we sleep, what goes wrong in sleep disorders, and how the brain implements
+sleep circuits. Their specific strategy is compelling: take candidate genes from human sleep
+GWAS, find the fly ortholog, run genetic manipulations, and use the phenotype to dissect
+the circuit and molecular mechanism. The result is a direct path from association to mechanism
+that neither human genetics nor model organism work alone could provide.
+</p>
+<p>
+I wanted to quantify the problem the Kayser lab is solving. How many GWAS loci for sleep traits
+are actually out there, and what fraction have any functional explanation?
+</p>
+
+<div class="note">
+<strong>What this is.</strong> Personal exploratory analysis, not novel research.
+Sleep trait associations downloaded from the
+<a href="https://www.ebi.ac.uk/gwas/" target="_blank">GWAS Catalog (EBI)</a>,
+July 2026. Kayser lab validated genes curated manually from published papers
+(sources listed in Figure 2 caption). Locus counts aggregate all genome-wide significant
+associations per mapped trait; multiple studies per trait are summed.
+</div>
+
+<h2>Over 6,600 GWAS loci for sleep — and most are functionally dark</h2>
+
+<figure>
+  <img src="sleep_gwas.svg?v=1"
+       alt="Bar chart of GWAS loci per sleep trait">
+  <figcaption>Total genome-wide significant GWAS associations per sleep trait, from all studies in
+  the GWAS Catalog as of July 2026. Insomnia alone has 4,422 loci across 47 studies — the result
+  of large-scale GWAS in UK Biobank and 23andMe cohorts. Excessive daytime sleepiness and
+  hypersomnia have far fewer loci, partly reflecting smaller study sizes and partly the difficulty
+  of phenotyping these conditions at scale.</figcaption>
+</figure>
+
+<div class="highlight">
+<strong>There are over 4,400 genome-wide significant insomnia loci and roughly 6,600 total across
+all sleep traits — yet the cellular and circuit mechanisms behind the vast majority are completely
+unknown.</strong>
+This is the core problem: GWAS excels at finding associations but cannot tell you whether a locus
+acts in neurons or glia, during development or in the adult, via synaptic structure or
+neuropeptide signaling. Translating any single locus to biology requires the kind of
+experimental work that <em>Drosophila</em> makes tractable: you can knock down a gene in a specific
+neuron type, measure sleep with single-animal resolution, and dissect the circuit in weeks rather
+than years.
+</div>
+
+<h2>The Kayser lab's pipeline: GWAS locus → fly ortholog → mechanism</h2>
+
+<figure>
+  <img src="validation_pipeline.svg?v=1"
+       alt="Cross-species validation pipeline for 4 Kayser lab genes">
+  <figcaption>Four genes functionally validated by the Kayser lab in 2025–2026, showing the
+  cross-species translation pipeline. Human gene (with associated GWAS trait) → <em>Drosophila</em>
+  ortholog → genetic manipulation phenotype → mechanistic insight.
+  Sources: Mace et al. 2026 <em>Nat Commun</em>; Mace et al. 2026 <em>biorXiv</em>;
+  Rodriguez et al. 2026 <em>biorXiv</em>; Coll-Tané et al. 2026 <em>J Clin Invest</em>.</figcaption>
+</figure>
+
+<div class="highlight2">
+<strong>CADM2/beat-Ia is one of the cleanest examples of how this pipeline works:</strong>
+a human GWAS hit for excessive daytime sleepiness at the CADM2 locus, fly knockdown of the
+ortholog beat-Ia causes sleepy flies, the mechanism turns out to be a defect in
+neuropeptide F (NPF) neurite elaboration that disrupts input to arousal-promoting GABAergic
+neurons, and an NPY receptor agonist (NPF is the fly homolog of human NPY) rescues sleep in
+zebrafish lacking CADM2. From association to potential therapeutic target in one paper.
+</div>
+
+<div class="highlight3">
+<strong>The TDP-43/SIK3 finding is the most surprising: sleep disruption in neurodegeneration
+is driven by peripheral metabolic dysfunction, not neural circuit loss.</strong>
+Rodriguez et al. 2026 showed that TDP-43 expression induces a starvation-like metabolic state
+in the periphery, and SIK3 (a kinase also linked to sleep homeostasis in mammalian studies)
+suppresses both the sleep phenotype and the metabolic defect by remodeling the pentose phosphate
+pathway. This means that for at least one neurodegenerative disease model, the therapeutic
+target for sleep disruption is in the body, not the brain — a genuinely unexpected result that
+only a whole-organism model like <em>Drosophila</em> could reveal.
+</div>
+
+<h2>Connection to the lab's work</h2>
+<ul>
+<li>
+<strong>Cross-species GWAS validation:</strong> The lab's multi-trait clustering approach to
+identify sub-threshold GWAS candidates (EGR2 paper) is something I find particularly interesting
+— it's a way to extract more biological signal from existing genomic data without waiting for
+larger cohorts. I'd be excited to contribute to the computational side of that pipeline,
+particularly the variant-to-gene mapping and candidate prioritization steps.
+</li>
+<li>
+<strong>Sleep and neurodegeneration:</strong> The SIK3 result raises the question of whether
+peripheral metabolic dysfunction drives sleep disruption in other neurodegenerative disease
+models too (alpha-synuclein? tau?). This seems like a natural extension, and one where
+transcriptomic and metabolomic readouts — which I've worked with computationally — would be
+the key tools.
+</li>
+<li>
+On the experimental side, I have hands-on experience with mammalian cell culture,
+Western blot, ELISA, flow cytometry, fluorescence microscopy, and protein analytical methods.
+I've also applied RNA-seq analysis computationally. I'm comfortable contributing across
+both bench and computational aspects of the work.
+</li>
+</ul>
+
+<h2>Methods</h2>
+<p>
+Sleep trait GWAS data downloaded from the
+<a href="https://www.ebi.ac.uk/gwas/api/search/downloads/studies_alternative" target="_blank">GWAS Catalog (EBI)</a>,
+July 2026 (studies_alternative download; all studies, all mapped traits). Traits grouped by
+canonical category; association counts summed across all studies per trait. Kayser lab validated
+genes curated from: Mace et al. (2026) <em>Nat Commun</em> 17:1628 (CADM2/beat-Ia);
+Mace et al. (2026) biorXiv 2026.06.12.731887 (EGR2/stripe);
+Rodriguez et al. (2026) biorXiv 2026.02.23.707321 (SIK3);
+Coll-Tané et al. (2026) <em>J Clin Invest</em> 136:e193475 (FOXP1/FoxP).
+Figures: pure Python SVG. Code:
+<a href="fetch_data.py">fetch_data.py</a>, <a href="make_figures.py">make_figures.py</a>.
+Raw data: <a href="sleep_gwas_traits.tsv">sleep_gwas_traits.tsv</a>,
+<a href="validated_genes.tsv">validated_genes.tsv</a>.
+</p>
+
+<div class="meta">
+Cathy Liu — cathyliu014@gmail.com | 415-216-3799<br>
+<a href="https://liuzhitong330.github.io/tvb-llm-robust-neurostim/" target="_blank">Epilepsy neurostimulation project</a> ·
+<a href="https://arxiv.org/abs/2606.04339" target="_blank">arXiv:2606.04339</a>
+</div>
+
+</body>
+</html>
